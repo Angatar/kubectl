@@ -1,10 +1,10 @@
 # Light kubectl container from busybox (d3fk/kubectl)
-A super light container with Kubectl(~45Mb) from busybox, prebuild on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from docker containers or from other k8s pods, jobs, cronjobs ...
+A super light container with Kubectl(~45Mb) from busybox, prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from docker containers or from other k8s pods, jobs, cronjobs ...
 
 ## Get this image (d3fk/kubectl)
 The best way to get this d3fk/kubectl image is to pull the prebuilt image from the Docker Hub Registry.
 
-The image is pre-build from Docker hub with "automated build" option.
+The image is prebuilt from Docker hub with "automated build" option.
 
 image name **d3fk/kubectl**
 ```sh
