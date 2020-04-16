@@ -24,6 +24,21 @@ If you want to connect to a remote cluster it is required to load your own confi
 $ docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config d3fk/kubectl
 ```
 
+e.g: if you want to list the pods in your cluster 
+```sh
+$ docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config d3fk/kubectl get pods
+```
+
+Tips:
+Might be useful to create an alias into your bashrc so that you can use this docker container as if kubectl was in your system (standard use with rancherOS).
+```sh
+alias k='docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config d3fk/kubectl'
+```
+You can then run your d3fk/kubectl commands as simple as the following:
+```sh
+$ k get pods
+```
+
 ## Usage with Kubernetes cronjob
 This container was created to be used into a cronjob in order to schedule forced rolling updates of our deployments so that our application gain in stablility by restarting pods with fresh containers.
 ... example files comming soon and explanation to be continued...
