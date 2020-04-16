@@ -30,7 +30,7 @@ $ docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config
 ```
 
 Tips:
-Might be useful to create an alias into your bashrc so that you can use this docker container as if kubectl was in your system (standard use with rancherOS).
+It might be useful to create an alias into your .bashrc so that you can use this docker container as if kubectl was in your system (standard use with [RancherOS](https://github.com/rancher/os/)).
 ```sh
 alias k='docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config d3fk/kubectl'
 ```
