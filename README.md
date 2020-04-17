@@ -61,7 +61,7 @@ The default kubectl RBAC rules do not allow to run a patch from another pod. So,
 For testing purposes and as we are creating a dedicated RBAC Role and RoleBinding we will work on a dedicated namespace "r-updated" so that these modifications won't touch your current default namespace and will only apply to the targeted deployments for regular rolling-updates (the CronJob and the targeted deployments as well as the dedicated RBAC rules have to be in the same namespace). If you want to apply these changes to an existing namespace you'll have to edit the namespace line in the provided templates for the deployment, rbac and cronjob.Otherwise you simply have to create the "r-updated" namespace:  
 
 ```sh
-$ Kubectl create namespace r-updated
+$ kubectl create namespace r-updated
 ```
 The template RBAC yaml file containing the required Role and RoleBinding to create a rolling update is available from the k8s directory of the repo as well ([rbac-rupdate.yaml](https://github.com/Angatar/kubectl-from-busybox/blob/master/k8s/rbac-rupdate.yaml))... please adapt the rights, and namespaces to your needs.
 
@@ -71,7 +71,7 @@ $ kubectl create -f rbac-rupdate.yaml
 A configmap to be used with your pod/job/cronjob that will make use of the d3fk/kubectl container ... can easily be created from the .kube/config file with the following kubectl command (assuming your config file of interest is located at $HOME/.kube ):
 
 ```sh
-$ Kubectl create configmap kubeconfig --from-file $HOME/.kube
+$ kubectl create configmap kubeconfig --from-file $HOME/.kube
 ```
     
 You can use the provided YAML file ([rolling-update-cronjob.yaml](https://github.com/Angatar/kubectl-from-busybox/blob/master/k8s/rolling-update-cronjob.yaml)) available from the k8s directory in this repo as a template for your CronJob (for test purposes this cronjob will trigger a job every minute, you'll have to adapt the cron settings to your needs).
