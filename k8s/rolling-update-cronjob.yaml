@@ -1,0 +1,33 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: rolling-update-cronjob
+  namespace: r-updated
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: kubectl-rollingupdate
+            image: d3fk/kubectl:latest
+            # We need to overwrite the container command and go with sh in order to patch with the current date and time
+            command: ["/bin/sh"]
+            args:
+            - -c
+            - kubectl patch deployment test-deployment -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"last-rolling-update\":\"`date`\"}}}}}"
+            volumeMounts:
+            - name: kubeconfig
+              mountPath: /root/.kube
+              subPath: .kube
+
+          volumes:
+          - name: kubeconfig
+            configMap:
+              name: kubeconfig
+
+          restartPolicy: Never
