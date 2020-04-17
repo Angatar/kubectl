@@ -40,11 +40,11 @@ $ k get pods
 ```
 
 ## Usage with Kubernetes cronjob
-This container was created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stablility by restarting pods regularly with fresh containers with no downtime.
+This container was created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stability by restarting pods regularly with fresh containers with no downtime.
 
 In order to illustrate the following descriptions and for testing purposes, template YAML files have been placed in the k8s directory of this repo.
 
-Rolling updates of your pods can simply be triggered by patching your targeted deployment ... it is important to define a rolling-update strategy to be sure that it will trigger the wished rolling-update behavior while patching your deployment, ex:
+Rolling updates of your pods can simply be triggered by patching your targeted deployment ... it is important to define a rolling-update strategy to be sure that it will trigger the wished rolling-update behaviour while patching your deployment, ex:
 ```yaml
 spec:
   replicas: 3
