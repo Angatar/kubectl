@@ -68,7 +68,7 @@ The template RBAC yaml file containing the required Role and RoleBinding to crea
 ```sh
 $ kubectl create -f rbac-rupdate.yaml
 ```
-A configmap to be used with your pod/job/cronjob that will make use of the d3fk/kubectl container ... can easily be created from the .kube/config file with the following kubectl command (assuming your config file of interest is located at $HOME/.kube ):
+A configmap to be used with your pod/job/cronjob that will make use of the d3fk/kubectl container ... can easily be created from the .kube/config file with the following kubectl command (assuming your config file of interest is located into $HOME/.kube ):
 
 ```sh
 $ kubectl create configmap kubeconfig --namespace r-updated --from-file $HOME/.kube
