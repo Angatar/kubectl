@@ -56,7 +56,7 @@ spec:
 ```
 A complete template deployment file is available from the k8s directory: [test-deployment.yaml](https://github.com/Angatar/kubectl-from-busybox/blob/master/k8s/test-deployment.yaml)
 
-The default kubectl RBAC rules do not allow to run a patch from another pod. So, to make it works we have to create a RBAC Role and RoleBinding with the rights to "get" and "patch". 
+The default k8s RBAC rules do not allow to run a patch from another pod. So, to make it works we have to create a RBAC Role and RoleBinding with the rights to "get" and "patch". 
 
 For testing purposes and as we are creating a dedicated RBAC Role and RoleBinding we will work on a dedicated namespace "r-updated" so that these modifications won't touch your current default namespace and will only apply to the targeted deployments for regular rolling-updates (the CronJob and the targeted deployments as well as the dedicated RBAC rules have to be in the same namespace). If you want to apply these changes to an existing namespace you'll have to edit the namespace line in the provided templates for the deployment, rbac, configmap and cronjob. Otherwise you simply have to create the "r-updated" namespace:  
 
