@@ -12,9 +12,9 @@ $ docker pull d3fk/kubectl:latest
 ```
 Docker hub repository: https://hub.docker.com/r/d3fk/kubectl/
 
-## Kubectl version of d3fk/kubectl is a stable version
+## Kubectl version of d3fk/kubectl is the last stable version
 
-The d3fk/kubectl:latest image available from the Docker Hub is build automatically at least once per week (automated build on each change of this repo + automated build triggered once per week) so that using the d3fk/kubectl image ensures you to have the last **stable** version available of kubectl within 7 days max after its release wich is currently [reported on this link](https://storage.googleapis.com/kubernetes-release/release/stable.txt)
+The **d3fk/kubectl:latest** image available from the Docker Hub is built automatically at least once per week (automated build on each change of this repo + automated build triggered once per week) so that using the d3fk/kubectl image ensures you to have the last **stable** version available of kubectl within 7 days max after its release wich is currently [reported on this link](https://storage.googleapis.com/kubernetes-release/release/stable.txt)
 
 ## Basic usage
 ```sh
