@@ -17,9 +17,9 @@ Docker hub repository: https://hub.docker.com/r/d3fk/kubectl/
 The **d3fk/kubectl:latest** image available from the Docker Hub is built automatically at least once per week (automated build on each change of this repo + automated build triggered once per week) so that using the d3fk/kubectl image ensures you to have the last **stable** version available of kubectl within 7 days max after its release. This last stable version of kubectl is currently related to the last release of Kubernetes wich is [reported Here](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
 
 In case you require an older or simply a fixed version of kubectl the following tagged images are also made available from the Docker hub:
-* for version 1.18.2: d3fk/kubectl:1.18
-* for version 1.17.5: d3fk/kubectl:1.17
-* for version 1.16.9: d3fk/kubectl:1.16 
+* for version 1.18.2: **d3fk/kubectl:1.18**
+* for version 1.17.5: **d3fk/kubectl:1.17**
+* for version 1.16.9: **d3fk/kubectl:1.16**
 
 
 ## Basic usage
