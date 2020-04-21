@@ -22,7 +22,6 @@ In case you require an older or simply a fixed version of kubectl, the following
 * for version 1.17.5: **d3fk/kubectl:1.17**
 * for version 1.16.9: **d3fk/kubectl:1.16**
 
-
 ## Basic usage
 ```sh
 $ docker run --rm d3fk/kubectl
