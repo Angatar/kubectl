@@ -1,4 +1,4 @@
-# Light kubectl container from busybox (Angatar - d3fk/kubectl)
+# Light kubectl container from busybox (Angatar>d3fk/kubectl)
 A super light container with Kubectl(~45Mb) from busybox, prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from docker containers or from other k8s pods, jobs, cronjobs ... 
 
 This container is especially convenient with tiny linux distro such as [RancherOS](https://github.com/rancher/os/).
