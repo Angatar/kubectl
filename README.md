@@ -38,7 +38,7 @@ $ docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config
 
 e.g: if you want to list the pods in your cluster 
 ```sh
-$ docker run --rm --name kubectl -v /path/to/your/kube/config:/root/.kube/config d3fk/kubectl get pods
+$ docker run --rm --name kubectl -v $HOME/.kube/config:/root/.kube/config d3fk/kubectl get pods
 ```
 
 Tips:
@@ -54,7 +54,7 @@ $ k get pods
 ## Usage with Kubernetes cronjob
 This container was created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stability by restarting pods regularly with fresh containers with no downtime.
 
-In order to illustrate the following descriptions and for testing purposes, template YAML files have been placed in the k8s directory of this repo.
+In order to illustrate the following descriptions and for testing purposes, template YAML files have been placed in the [k8s directory of this code repository](https://github.com/Angatar/kubectl-from-busybox/blob/master/k8s/).
 
 Rolling updates of your pods can simply be triggered by patching your targeted deployment ... it is important to define a rolling-update strategy to be sure that it will trigger the wished rolling-update behaviour while patching your deployment, ex:
 ```yaml
