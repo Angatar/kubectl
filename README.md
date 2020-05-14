@@ -97,6 +97,4 @@ kubectl create -f rolling-update-cronjob.yaml
 ```
 Then, k8s rolling updates will be made regularly based on your CronJob configuration.
 
-<p align="right">
-  [![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Angatar/kubectl-from-busybox/blob/master/LICENSE)
-</p>
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Angatar/kubectl-from-busybox/blob/master/LICENSE)
