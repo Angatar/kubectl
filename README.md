@@ -1,5 +1,5 @@
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super light container with Kubectl(~44Mb) only and that's it. It is made from scratch (poured from busybox into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from docker containers or from other k8s pods, jobs, cronjobs ... 
+A super light container with Kubectl only and that's it(~44MB). It is made from scratch (poured from busybox into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from docker containers or from other k8s pods, jobs, cronjobs ... 
 
 This container is also especially convenient with tiny linux distro such as [RancherOS](https://github.com/rancher/os/).
 
