@@ -22,7 +22,7 @@ spec:
             - kubectl patch deployment test-deployment -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"last-rolling-update\":\"`date`\"}}}}}"
             volumeMounts:
             - name: kubeconfig
-              mountPath: /root/.kube
+              mountPath: /.kube
               subPath: .kube
 
           volumes:
