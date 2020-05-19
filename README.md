@@ -95,7 +95,7 @@ You can use the provided YAML file ([rolling-update-cronjob.yaml](https://github
 
 This template CronJob yaml file is using the configmap "kubeconfig" created previously to load the kubectl configuration file (change this to your requirements). Once configured with the targeted deployment (simply edit the deployment name in the CronJob file), the k8s CronJob can be created from the file:
 ```sh
-kubectl create -f rolling-update-cronjob.yaml
+$ kubectl create -f rolling-update-cronjob.yaml
 ```
 Then, k8s rolling updates will be made regularly based on your CronJob configuration.
 
