@@ -15,11 +15,15 @@ spec:
           containers:
           - name: kubectl-rollingupdate
             image: d3fk/kubectl:latest
-            # We need to overwrite the container command and go with sh in order to patch with the current date and time
-            command: ["/bin/sh"]
-            args:
-            - -c
-            - kubectl patch deployment test-deployment -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"last-rolling-update\":\"`date`\"}}}}}"
+            # Set env var to be used by the command args
+            env:
+            - name: RUPDATE_TRIGGER
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            # We need to patch the targeted deployment annotation with a different value to trigger the rolling update
+            # i.e: current date and time, pod name that triggered this update (the env var set in this example) ...
+            args: ["patch", "deployment/test-deployment", "-p", "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"rolling-update-trigger\":\"$(RUPDATE_TRIGGER)\"}}}}}"]
             volumeMounts:
             - name: kubeconfig
               mountPath: /.kube
