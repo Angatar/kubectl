@@ -56,8 +56,8 @@ You can then run your d3fk/kubectl commands as simple as the following:
 $ k get pods
 ```
 
-## Usage with Kubernetes cronjob
-This container was created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stability by restarting pods regularly with fresh containers with no downtime.
+## Usage within Kubernetes
+This container was initially created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stability by restarting pods regularly with fresh containers with no downtime.
 
 In order to illustrate the following descriptions and for testing purposes, template YAML files have been placed in the [k8s directory of this code repository](https://github.com/Angatar/kubectl/blob/master/k8s/).
 
