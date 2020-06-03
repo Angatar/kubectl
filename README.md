@@ -1,5 +1,5 @@
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl only and ... that's it(~44MB). It is made from scratch (poured from busybox into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
+A super lightweight container with Kubectl official binary only and ... that's it(~44MB). It is made from scratch (poured from alpine into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
@@ -21,7 +21,7 @@ Docker hub repository: https://hub.docker.com/r/d3fk/kubectl/
 
 ## Kubectl version of d3fk/kubectl is the last stable version
 
-The **d3fk/kubectl:latest** image available from the Docker Hub is built automatically at least once per week (automated build on each change of this repo + automated build auto-triggered once per week) so that using the d3fk/kubectl image ensures you to have the last **stable** version available of Kubectl within 7 days max after its release. This last stable version of Kubectl is currently related to the last release of Kubernetes which is [reported Here](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+The **d3fk/kubectl:latest** image available from the Docker Hub is made with automated build auto-triggered every day so that using the d3fk/kubectl image ensures you to have the last **stable** version available of Kubectl within 24H max after its release. This last stable version of Kubectl is currently related to the last release of Kubernetes which is [reported Here](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
 
 ## Previous Kubectl versions 
 In case you require a previous version or simply a fixed version of Kubectl, the following tagged images are also made available from the Docker hub. In each of these images the version is fixed and won't be changed. These images are stable and won't be rebuilt in the future:
@@ -61,7 +61,7 @@ This container was initially created to be used from a K8s CronJob in order to s
 
 In order to illustrate the following descriptions and for testing purposes, template YAML files have been placed in the [k8s directory of this code repository](https://github.com/Angatar/kubectl/blob/master/k8s/).
 
-Rolling updates of your pods can simply be triggered by patching your targeted deployment ... it is important to define a rolling-update strategy to be sure that it will trigger the wished rolling-update behaviour while patching your deployment, ex:
+Rolling updates of your pods can simply be triggered by patching your targeted deployment or by rolling restart with the kubectl roullout restart ... it is important to define a rolling-update strategy to be sure that it will trigger the wished rolling-update behaviour while patching your deployment, ex:
 ```yaml
 spec:
   replicas: 3
@@ -73,7 +73,7 @@ spec:
 ```
 A complete template deployment file is available from the k8s directory: [test-deployment.yaml](https://github.com/Angatar/kubectl/blob/master/k8s/test-deployment.yaml)
 
-The default k8s RBAC rules do not allow to run a patch from another pod. So, to make it works we have to create a RBAC Role and RoleBinding with the rights to "get" and "patch". 
+The default k8s RBAC rules do not allow to run a patch or rollout from another pod. So, to make it works we have to create a RBAC Role and RoleBinding with the needed rights e.g.: for patching we need to "get" and "patch". 
 
 For testing purposes and as we are creating a dedicated RBAC Role and RoleBinding we will work on a dedicated namespace "r-updated" so that these modifications won't touch your current default namespace and will only apply to the targeted deployments for regular rolling-updates (the CronJob and the targeted deployments as well as the dedicated RBAC rules have to be in the same namespace). If you want to apply these changes to an existing namespace you'll have to edit the namespace line in the provided templates for the deployment, rbac, configmap and cronjob. Otherwise you simply have to create the "r-updated" namespace:  
 
