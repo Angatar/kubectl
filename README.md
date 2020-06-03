@@ -46,10 +46,17 @@ e.g: if you want to list the pods in your cluster
 $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubectl get pods
 ```
 
+In case you need to use yaml files, configmaps or any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files to this path:
+
+e.g: to create a deployment from a deployment file in your current directory
+```sh
+$ docker run --rm --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl create -f deployment.yaml
+```
+
 Tips:
 It might be useful to create an alias into your .bashrc so that you can use this docker container as if kubectl was in your system (standard use with [RancherOS](https://github.com/rancher/os/)).
 ```sh
-alias k='docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
+alias k='docker run --rm --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
