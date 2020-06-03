@@ -48,7 +48,7 @@ $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubect
 
 In case you need to use yaml files, configmaps or any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files to this path:
 
-e.g: to create a deployment from a deployment file in your current directory
+e.g: to create a deployment from a deployment.yaml file in your current directory
 ```sh
 $ docker run --rm --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl create -f deployment.yaml
 ```
