@@ -49,7 +49,7 @@ $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubect
 Tips:
 It might be useful to create an alias into your .bashrc so that you can use this docker container as if kubectl was in your system (standard use with [RancherOS](https://github.com/rancher/os/)).
 ```sh
-alias k='docker run --rm --name kubectl -v /path/to/your/kube/config:/.kube/config d3fk/kubectl'
+alias k='docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
