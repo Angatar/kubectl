@@ -9,3 +9,4 @@ COPY --from=helper /kubectl /kubectl
 
 ENTRYPOINT ["/kubectl"]
 CMD ["--help"]
+WORKDIR /files

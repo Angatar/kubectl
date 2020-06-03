@@ -1,5 +1,5 @@
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl official binary only and ... that's it(~44MB). It is made from scratch (poured from alpine into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
+A super lightweight container with Kubectl official binary only and ... that's it (~44MB). It is made from scratch (poured from alpine into scratch), prebuilt on Docker hub with "automated build", updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
@@ -8,7 +8,7 @@ This container is also especially convenient with tiny linux distro such as [Ran
 ## Get this image (d3fk/kubectl)
 The best way to get this d3fk/kubectl image is to pull the prebuilt image from the Docker Hub Registry.
 
-The image is prebuilt from Docker hub with "automated build" option.
+The image is prebuilt from Docker hub with "automated build" option on [its code repository](https://github.com/Angatar/kubectl).
 
 image name **d3fk/kubectl**
 ```sh
@@ -46,10 +46,17 @@ e.g: if you want to list the pods in your cluster
 $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubectl get pods
 ```
 
+In case you need to use yaml files, configmaps or any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files to this path:
+
+e.g: to create a deployment from a deployment file in your current directory
+```sh
+$ docker run --rm --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl create -f deployment.yaml
+```
+
 Tips:
 It might be useful to create an alias into your .bashrc so that you can use this docker container as if kubectl was in your system (standard use with [RancherOS](https://github.com/rancher/os/)).
 ```sh
-alias k='docker run --rm --name kubectl -v /path/to/your/kube/config:/.kube/config d3fk/kubectl'
+alias k='docker run --rm --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
