@@ -1,5 +1,5 @@
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl official binary only and ... that's it(~44MB). It is made from scratch (poured from alpine into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
+A super lightweight container with Kubectl official binary only and ... that's it (~44MB). It is made from scratch (poured from alpine into scratch), prebuilt on Docker hub with "automated build". This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
@@ -8,7 +8,7 @@ This container is also especially convenient with tiny linux distro such as [Ran
 ## Get this image (d3fk/kubectl)
 The best way to get this d3fk/kubectl image is to pull the prebuilt image from the Docker Hub Registry.
 
-The image is prebuilt from Docker hub with "automated build" option.
+The image is prebuilt from Docker hub with "automated build" option on [this code repository](https://github.com/Angatar/kubectl).
 
 image name **d3fk/kubectl**
 ```sh
