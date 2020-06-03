@@ -8,7 +8,7 @@ This container is also especially convenient with tiny linux distro such as [Ran
 ## Get this image (d3fk/kubectl)
 The best way to get this d3fk/kubectl image is to pull the prebuilt image from the Docker Hub Registry.
 
-The image is prebuilt from Docker hub with "automated build" option on [this code repository](https://github.com/Angatar/kubectl).
+The image is prebuilt from Docker hub with "automated build" option on [its code repository](https://github.com/Angatar/kubectl).
 
 image name **d3fk/kubectl**
 ```sh
