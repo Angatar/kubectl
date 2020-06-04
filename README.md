@@ -47,7 +47,7 @@ $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubect
 ```
 
 
-In case you need to use yaml files, configmaps or any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files to this path
+In case you need to use yaml files, create configmaps or use any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files on this path and use them from the d3fk/kubectl container.
 
 e.g: to create a deployment from a deployment.yaml file in your current directory
 ```sh
@@ -58,10 +58,23 @@ $ docker run --rm --name kubectl \
 ```
 
 
-Tips:
-It might be useful to create an alias into your .bashrc so that you can use this docker container as if kubectl was in your system (standard use with [RancherOS](https://github.com/rancher/os/)).
+If you need to use kubectl with terminal interaction with a k8s component you'll have to add the -ti option to the docker running command. 
+
+e.g: for entering into a container shell within a pod for debugging/inspecting ... purpose
+
 ```sh
-alias k='docker run --rm --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
+$ docker run -ti --rm --name kubectl \
+             -v $(pwd):/files \
+             -v $HOME/.kube/config:/.kube/config \
+             d3fk/kubectl exec -ti deployment/examplebashpod -- bash
+```
+
+
+
+Tips:
+It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH (standard use with [RancherOS](https://github.com/rancher/os/)).
+```sh
+alias k='docker run --rm -ti --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
