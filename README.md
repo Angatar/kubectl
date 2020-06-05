@@ -74,7 +74,7 @@ $ docker run -ti --rm --name kubectl \
 Tips:
 It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH (standard use with [RancherOS](https://github.com/rancher/os/)).
 ```sh
-alias k='docker run --rm -ti --name kubectl -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
+alias k='docker run --rm -ti -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
