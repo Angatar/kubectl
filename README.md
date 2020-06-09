@@ -1,5 +1,5 @@
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl official binary only and ... that's it (~44MB). It is made from scratch (downloaded from googleapis and poured from alpine into scratch), prebuilt on Docker hub with "automated build", updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
+A super lightweight container with Kubectl official binary only and ... that's it (~44MB). It is made from scratch (downloaded from googleapis by alpine container and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build", updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
