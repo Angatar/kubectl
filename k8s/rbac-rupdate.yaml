@@ -1,17 +1,19 @@
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: rolling-update-from-pods
   namespace: r-updated
 rules:
 # Just an example, feel free to change it
-- apiGroups: ["extensions"]
+# Check the core API group e.g., deployments are
+# only availabe from the apps API group since v1.16
+ - apiGroups: ["apps"]
   resources: ["deployments"]
   verbs: ["get", "patch"]
 
 ---
-apiVersion: rbac.authorization.k8s.io/v1beta1
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: rolling-update-from-pods
