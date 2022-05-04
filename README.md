@@ -1,6 +1,5 @@
-![Docker Pulls](https://img.shields.io/docker/pulls/d3fk/kubectl) ![Docker Cloud Automated build](https://img.shields.io/docker/cloud/automated/d3fk/kubectl) ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/d3fk/kubectl) ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/d3fk/kubectl) ![Docker Stars](https://img.shields.io/docker/stars/d3fk/kubectl) [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl official binary only and ... that's it (~44MB |~14MB compressed). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build", updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
+A super lightweight container with Kubectl official binary only and ... that's it (~44MB). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build", updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ... 
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
@@ -26,6 +25,7 @@ The **d3fk/kubectl:latest** image available from the Docker Hub is made with aut
 
 ## Previous Kubectl versions 
 In case you require a previous version or simply a fixed version of Kubectl, the following tagged images are also made available from the Docker hub. In each of these images the version is fixed and won't be changed so that it was freezed in a release of the code repo and built from the Docker hub by automated build (the code is available from the "releases" section of this image code repository on GitHub). These images are stable and won't be rebuilt in the future:
+* for version 1.23.6: **d3fk/kubectl:v1.23**
 * for version 1.22.6: **d3fk/kubectl:v1.22**
 * for version 1.21.4: **d3fk/kubectl:v1.21**
 * for version 1.20.8: **d3fk/kubectl:v1.20**
@@ -129,4 +129,4 @@ $ kubectl create -f rolling-update-cronjob.yaml
 ```
 Then, k8s rolling updates will be made regularly based on your CronJob configuration.
 
-[![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
