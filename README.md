@@ -27,6 +27,7 @@ The **d3fk/kubectl:latest** image available from the Docker Hub is made with aut
 
 ## Previous Kubectl versions 
 In case you require a previous version or simply a fixed version of Kubectl, the following tagged images are also made available from the Docker hub. In each of these images the version is fixed and won't be changed so that it was freezed in a release of the code repo and built from the Docker hub by automated build (the code is available from the "releases" section of this image code repository on GitHub). These images are stable and won't be rebuilt in the future:
+* for version 1.24.8: **d3fk/kubectl:v1.24**
 * for version 1.23.6: **d3fk/kubectl:v1.23**
 * for version 1.22.6: **d3fk/kubectl:v1.22**
 * for version 1.21.4: **d3fk/kubectl:v1.21**
