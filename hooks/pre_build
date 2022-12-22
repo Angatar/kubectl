@@ -1,5 +1,6 @@
 #!/bin/bash
-
+echo "clearing buildx cache ..."
+docker buildx prune --force
 echo "Creating multi-arch builder ahead of build process..."
 docker buildx create \
 --name multiarch \
