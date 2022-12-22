@@ -5,6 +5,7 @@ RUN wget https://storage.googleapis.com/kubernetes-release/release/$(wget -q -O-
     && chmod +x kubectl 
 
 FROM scratch
+LABEL org.opencontainers.image.authors="d3fk"
 COPY --from=helper /kubectl /kubectl
 
 ENTRYPOINT ["/kubectl"]
