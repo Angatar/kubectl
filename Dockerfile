@@ -1,8 +1,8 @@
 FROM alpine:latest as helper
 MAINTAINER d3fk
-
-RUN wget https://storage.googleapis.com/kubernetes-release/release/$(wget -q -O- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl \
-  && chmod +x kubectl 
+ARG BUILDPLATFORM
+RUN wget https://storage.googleapis.com/kubernetes-release/release/$(wget -q -O- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/$(echo $BUILDPLATFORM |sed 's/\/v[6,7,8]//')/kubectl \
+    && chmod +x kubectl 
 
 FROM scratch
 COPY --from=helper /kubectl /kubectl
