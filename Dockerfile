@@ -1,4 +1,4 @@
-FROM alpine:latest as helper
+FROM --platform=$BUILDPLATFORM alpine:latest as helper
 LABEL org.opencontainers.image.authors="d3fk"
 ARG TARGETPLATFORM
 RUN wget https://storage.googleapis.com/kubernetes-release/release/$(wget -q -O- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/$(echo $TARGETPLATFORM |sed 's/\/v[6,7,8]//')/kubectl \
