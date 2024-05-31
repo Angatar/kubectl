@@ -39,6 +39,7 @@ Therefore, you could even use this d3fk/kubectl container to manage K8s clusters
 
 ## Previous Kubectl versions 
 In case you require a previous version or simply a fixed version of Kubectl, the following tagged images are also made available from the Docker hub (as multi-arch image from d3fk/kubectl:v1.25). In each of these images the version is fixed and won't be changed so that it was freezed in a release of the code repo and built from the Docker hub by automated build (the code is available from the "releases" section of this image code repository on GitHub). These images are stable and won't be rebuilt in the future:
+* for version 1.29.5: **d3fk/kubectl:v1.29**
 * for version 1.28.10: **d3fk/kubectl:v1.28**
 * for version 1.27.5: **d3fk/kubectl:v1.27**
 * for version 1.26.8: **d3fk/kubectl:v1.26**
