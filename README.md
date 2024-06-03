@@ -18,7 +18,7 @@ $ docker pull d3fk/kubectl:latest
 ```
 Docker hub repository: https://hub.docker.com/r/d3fk/kubectl/
 
-[![DockerHub Badge](https://lucky-red-wombat.cyclic.app/image/d3fk/kubectl)](https://hub.docker.com/r/d3fk/kubectl)
+[![DockerHub Badge](https://dockeri.co/image/d3fk/kubectl)](https://hub.docker.com/r/d3fk/kubectl)
 
 
 ## Kubectl version of d3fk/kubectl is the last stable version
