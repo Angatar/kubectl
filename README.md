@@ -5,7 +5,7 @@ A super lightweight container with Kubectl official binary only and ... that's i
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
-This container is also especially convenient with tiny linux distro.
+This container is also especially convenient with tiny/immutable linux distro such as [Flatcar Container Linux](https://github.com/flatcar/Flatcar), taking advantage of the immutability of Docker images without requiring the use of a package manager... see-> [Tips: Super fast setup](#TipsAnchor)
 
 ## Get this image (d3fk/kubectl)
 The best way to get this d3fk/kubectl image is to pull the prebuilt image from the Docker Hub Registry.
@@ -95,12 +95,12 @@ $ docker run -ti --rm --name kubectl \
              d3fk/kubectl exec -ti deployment/examplebashpod -- bash
 ```
 
+<h4 id="TipsAnchor"></h4>
 
-
-Tips:
+### Tips:
 It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH.
 ```sh
-alias k='docker run --rm -ti -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
+alias k='docker run --rm -ti --user $(id -u):$(id -g) -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
@@ -150,4 +150,20 @@ $ kubectl create -f rolling-update-cronjob.yaml
 ```
 Then, k8s rolling updates will be made regularly based on your CronJob configuration.
 
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
+
+## License
+
+The content of this [GitHub code repository](https://github.com/Angatar/kubectl) is provided under **MIT** licence
+[![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE).
+
+For **kubectl** license information, please see https://github.com/kubernetes/kubectl .
+
+
+## Wanna use Helm?
+
+If you're using Kubectl, you might also be interested in the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container. It offers a similar lightweight and minimalistic container approach for deploying your Helm charts in your k8s clusters using the Helm command-line tool.
+
+You can find more details and usage instructions for the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container on [Docker Hub](https://hub.docker.com/r/d3fk/helm/) or its [GitHub repository]((https://github.com/Angatar/helm)).
+
+
+[![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
