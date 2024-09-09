@@ -1,11 +1,11 @@
 [![Docker Pulls](https://badgen.net/docker/pulls/d3fk/kubectl?icon=docker&label=pulls&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=image%20size&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker build](https://img.shields.io/badge/automated-automated?style=flat&logo=docker&logoColor=blue&label=build&color=green&cacheSeconds=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Stars](https://badgen.net/docker/stars/d3fk/kubectl?icon=docker&label=stars&color=green&cache=600)](https://hub.docker.com/r/d3fk/kubectl) [![Github Stars](https://img.shields.io/github/stars/Angatar/kubectl?label=stars&logo=github&color=green&style=flat&cacheSeconds=600)](https://github.com/Angatar/kubectl) [![Github forks](https://img.shields.io/github/forks/Angatar/kubectl?logo=github&style=flat&cacheSeconds=600)](https://github.com/Angatar/kubectl/fork) [![Github open issues](https://img.shields.io/github/issues-raw/Angatar/kubectl?logo=github&color=yellow&cacheSeconds=600)](https://github.com/Angatar/kubectl/issues) [![Github closed issues](https://img.shields.io/github/issues-closed-raw/Angatar/kubectl?logo=github&color=green&cacheSeconds=600)](https://github.com/Angatar/kubectl/issues?q=is%3Aissue+is%3Aclosed) [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
 
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl official binary only and ... that's it (~44MB -> [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=compressed&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags)). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build" as multi-arch image from v1.25, updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ...
+A super lightweight container with only Kubectl official binary plus a default non-root user... that's it (~44MB -> [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=compressed&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags)). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build" as multi-arch image from v1.25, updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ...
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
-This container is also especially convenient with tiny linux distro.
+This container is also especially convenient with tiny/immutable linux distro such as [Flatcar Container Linux](https://github.com/flatcar/Flatcar), taking advantage of the immutability of Docker images without requiring the use of a package manager... see-> [Tips: Super fast setup](#TipsAnchor)
 
 ## Get this image (d3fk/kubectl)
 The best way to get this d3fk/kubectl image is to pull the prebuilt image from the Docker Hub Registry.
@@ -61,21 +61,28 @@ $ docker run --rm d3fk/kubectl
 ```
 This command will display the list of kubectl commands available
 
+## Default User
+
+Starting from version 1.31 the d3fk/kubectl container image includes a non-root default user named `kubectl` with a UID of `6009` to follow [Docker's best practices](https://docs.docker.com/scout/policy/#default-non-root-user). This UID was chosen to minimize interference with existing users on your local filesystem  (e.g, access to config files, mounted volumes...).
+
+If you were using d3fk/kubectl versions below v1.31, this non-root user setup should not impact your usual practices with d3fk/kubectl, except exceptional cases where you are dealing with files or directories that have specific restricted read access. If you encounter such cases and wish to replicate the behavior of running kubectl locally, you can set the container user to your own UID by using the `--user` option.
+
+
 ## Configuration
-If you want to connect to a remote cluster it is required to load your own configuration.
+To connect to a remote cluster, you need to load your own configuration.
 ```sh
 $ docker run --rm --name kubectl -v /path/to/your/kube/config:/.kube/config d3fk/kubectl
 ```
 
-e.g: if you want to list the pods in your cluster
+For example, to list the pods in your cluster:
 ```sh
 $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubectl get pods
 ```
 
 
-In case you need to use yaml files, create configmaps or use any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files on this path and use them from the d3fk/kubectl container.
+If you need to use YAML files, create configmaps, or work with other files using kubectl, a `WORKDIR` has been set in the `d3fk/kubectl` container at the `/files` path. You can mount your files to this path and use them within the container.
 
-e.g: to create a deployment from a deployment.yaml file in your current directory
+For example, to create a deployment from a `deployment.yaml` file in your current directory:
 ```sh
 $ docker run --rm --name kubectl \
              -v $(pwd):/files \
@@ -86,7 +93,7 @@ $ docker run --rm --name kubectl \
 
 If you need to use kubectl with terminal interaction with a k8s component you'll have to add the -ti option to the docker running command.
 
-e.g: for entering into a container shell within a pod for debugging/inspecting ... purpose
+For example, to enter a container shell within a pod for debugging or inspection purposes:
 
 ```sh
 $ docker run -ti --rm --name kubectl \
@@ -96,17 +103,36 @@ $ docker run -ti --rm --name kubectl \
 ```
 
 
+### Tips:
+#### working with limited access rights
+If you are working with files or directories that have restricted access rights, you can set your current user as the default container user using the `--user` option.
+You can simply dynamically incorporate your user ID and group ID into the run command using `$(id -u)` and `$(id -g)`.
 
-Tips:
-It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH.
+For example:
+
 ```sh
-alias k='docker run --rm -ti -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
+$ docker run -ti --rm --name kubectl \
+             --user $(id -u):$(id -g) \
+             -v $(pwd):/files \
+             -v $HOME/.kube/config:/.kube/config \
+             d3fk/kubectl apply -f deployment.yaml
+```
+
+
+<h4 id="TipsAnchor"></h4>
+
+
+#### Super fast setup
+It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH.
+For a simple rapid local setup you can copy paste the following line in your prompt (assuming $HOME/.kube/congfig file is accessible to the current user) :
+```sh
+alias k='docker run --rm -ti --user $(id -u):$(id -g) -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
 You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
 $ k get pods
 ```
-
+ As the alias was only added in your prompt it is only available for your current session, to make Kubectl available from any future session simply add the alias in your launch shell script e.g `.bashrc`, `.shrc`, `.rc`...
 ## Usage within Kubernetes
 This container was initially created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stability by restarting pods regularly with fresh containers with no downtime.
 
@@ -150,4 +176,20 @@ $ kubectl create -f rolling-update-cronjob.yaml
 ```
 Then, k8s rolling updates will be made regularly based on your CronJob configuration.
 
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
+
+## License
+
+The content of this [GitHub code repository](https://github.com/Angatar/kubectl) is provided under **MIT** licence
+[![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE).
+
+For **kubectl** license information, please see https://github.com/kubernetes/kubectl .
+
+
+## Wanna use Helm?
+
+If you're using Kubectl, you might also be interested in the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container. It offers a similar lightweight and minimalistic container approach for deploying your Helm charts in your k8s clusters using the Helm command-line tool.
+
+You can find more details and usage instructions for the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container on [Docker Hub](https://hub.docker.com/r/d3fk/helm/) or its [GitHub repository]((https://github.com/Angatar/helm)).
+
+
+[![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
