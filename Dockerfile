@@ -2,8 +2,20 @@ ARG APPNAME="kubectl"
 FROM --platform=$BUILDPLATFORM alpine:latest as helper
 LABEL org.opencontainers.image.authors="d3fk"
 ARG TARGETPLATFORM
+ARG APPNAME
 ARG USERNAME=$APPNAME
-RUN wget https://storage.googleapis.com/kubernetes-release/release/$(wget -q -O- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/$(echo $TARGETPLATFORM |sed 's/\/v[6,7,8]//')/kubectl \
+
+RUN apk add --no-cache openssl \
+    && DOWNLOAD_PATH="https://storage.googleapis.com/kubernetes-release/release/$(wget -q -O- https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/$(echo $TARGETPLATFORM |sed 's/\/v[6,7,8]//')/kubectl" \
+    && wget $DOWNLOAD_PATH \
+    && wget $DOWNLOAD_PATH.sha256 \
+    # Verify the checksum
+    && sum=$(openssl sha256 $APPNAME | awk '{print $2}') \
+    && expected_sum=$(cat $APPNAME.sha256 ) \
+    && [ "$sum" != "$expected_sum" ] \
+    && echo "SHA sum of $APPNAME does not match. Aborting." \
+    && exit 1 || echo "Verifying checksum of $APPNAME... Done." \
+    # checksum completed
     && chmod +x kubectl \
     # Creating minimal user and group files for default user
     && mkdir -p "/user/etc" \
