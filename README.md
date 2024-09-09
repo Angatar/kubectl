@@ -1,7 +1,7 @@
 [![Docker Pulls](https://badgen.net/docker/pulls/d3fk/kubectl?icon=docker&label=pulls&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=image%20size&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker build](https://img.shields.io/badge/automated-automated?style=flat&logo=docker&logoColor=blue&label=build&color=green&cacheSeconds=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Stars](https://badgen.net/docker/stars/d3fk/kubectl?icon=docker&label=stars&color=green&cache=600)](https://hub.docker.com/r/d3fk/kubectl) [![Github Stars](https://img.shields.io/github/stars/Angatar/kubectl?label=stars&logo=github&color=green&style=flat&cacheSeconds=600)](https://github.com/Angatar/kubectl) [![Github forks](https://img.shields.io/github/forks/Angatar/kubectl?logo=github&style=flat&cacheSeconds=600)](https://github.com/Angatar/kubectl/fork) [![Github open issues](https://img.shields.io/github/issues-raw/Angatar/kubectl?logo=github&color=yellow&cacheSeconds=600)](https://github.com/Angatar/kubectl/issues) [![Github closed issues](https://img.shields.io/github/issues-closed-raw/Angatar/kubectl?logo=github&color=green&cacheSeconds=600)](https://github.com/Angatar/kubectl/issues?q=is%3Aissue+is%3Aclosed) [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
 
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with Kubectl official binary only and ... that's it (~44MB -> [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=compressed&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags)). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build" as multi-arch image from v1.25, updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ...
+A super lightweight container with only Kubectl official binary plus a default non-root user... that's it (~44MB -> [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=compressed&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags)). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build" as multi-arch image from v1.25, updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ...
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
@@ -65,7 +65,8 @@ This command will display the list of kubectl commands available
 
 Starting from version 1.31 the d3fk/kubectl container image includes a non-root default user named `kubectl` with a UID of `6009` to follow [Docker's best practices](https://docs.docker.com/scout/policy/#default-non-root-user). This UID was chosen to minimize interference with existing users on your local filesystem  (e.g, access to config files, mounted volumes...).
 
-This non-root user setup should not impact your usual practices with d3fk/kubectl, except when dealing with files or directories that have specific restricted read access. If you encounter such cases and wish to replicate the behavior of running kubectl locally, you can set the container user to your own UID by using the `--user` option.
+If you were using d3fk/kubectl versions below v1.31, this non-root user setup should not impact your usual practices with d3fk/kubectl, except exceptional cases where you are dealing with files or directories that have specific restricted read access. If you encounter such cases and wish to replicate the behavior of running kubectl locally, you can set the container user to your own UID by using the `--user` option.
+
 
 ## Configuration
 To connect to a remote cluster, you need to load your own configuration.
@@ -79,7 +80,7 @@ $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubect
 ```
 
 
-f you need to use YAML files, create configmaps, or work with other files using kubectl, a `WORKDIR` has been set in the `d3fk/kubectl` container at the `/files` path. You can mount your files to this path and use them within the container.
+If you need to use YAML files, create configmaps, or work with other files using kubectl, a `WORKDIR` has been set in the `d3fk/kubectl` container at the `/files` path. You can mount your files to this path and use them within the container.
 
 For example, to create a deployment from a `deployment.yaml` file in your current directory:
 ```sh
