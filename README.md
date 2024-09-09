@@ -103,8 +103,9 @@ $ docker run -ti --rm --name kubectl \
 
 
 ### Tips:
+#### working with limited access rights
 If you are working with files or directories that have restricted access rights, you can set your current user as the default container user using the `--user` option.
-You can dynamically incorporate your user ID and group ID into the run command using `$(id -u)` and `$(id -g)`.
+You can simply dynamically incorporate your user ID and group ID into the run command using `$(id -u)` and `$(id -g)`.
 
 For example:
 
@@ -120,7 +121,9 @@ $ docker run -ti --rm --name kubectl \
 <h4 id="TipsAnchor"></h4>
 
 
+#### Super fast setup
 It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH.
+For a simple rapid local setup you can copy paste the following line in your prompt (assuming $HOME/.kube/congfig file is accessible to the current user) :
 ```sh
 alias k='docker run --rm -ti --user $(id -u):$(id -g) -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
 ```
@@ -128,7 +131,7 @@ You can then run your d3fk/kubectl commands as simple as the following:
 ```sh
 $ k get pods
 ```
-
+ As the alias was only added in your prompt it is only available for your current session, to make Kubectl available from any future session simply add the alias in your launch shell script e.g `.bashrc`, `.shrc`, `.rc`...
 ## Usage within Kubernetes
 This container was initially created to be used from a K8s CronJob in order to schedule forced rolling updates of specific deployments so that our related scaled applications can gain in stability by restarting pods regularly with fresh containers with no downtime.
 
