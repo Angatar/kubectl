@@ -61,21 +61,27 @@ $ docker run --rm d3fk/kubectl
 ```
 This command will display the list of kubectl commands available
 
+## Default User
+
+Starting from version 1.31 the d3fk/kubectl container image includes a non-root default user named `kubectl` with a UID of `6009` to follow [Docker's best practices](https://docs.docker.com/scout/policy/#default-non-root-user). This UID was chosen to minimize interference with existing users on your local filesystem  (e.g, access to config files, mounted volumes...).
+
+This non-root user setup should not impact your usual practices with d3fk/kubectl, except when dealing with files or directories that have specific restricted read access. If you encounter such cases and wish to replicate the behavior of running kubectl locally, you can set the container user to your own UID by using the `--user` option.
+
 ## Configuration
-If you want to connect to a remote cluster it is required to load your own configuration.
+To connect to a remote cluster, you need to load your own configuration.
 ```sh
 $ docker run --rm --name kubectl -v /path/to/your/kube/config:/.kube/config d3fk/kubectl
 ```
 
-e.g: if you want to list the pods in your cluster
+For example, to list the pods in your cluster:
 ```sh
 $ docker run --rm --name kubectl -v $HOME/.kube/config:/.kube/config d3fk/kubectl get pods
 ```
 
 
-In case you need to use yaml files, create configmaps or use any other files with kubectl, a WORKDIR has been set in the d3fk/kubectl container at the "/files" path so that you simply have to use a volume to mount your files on this path and use them from the d3fk/kubectl container.
+f you need to use YAML files, create configmaps, or work with other files using kubectl, a `WORKDIR` has been set in the `d3fk/kubectl` container at the `/files` path. You can mount your files to this path and use them within the container.
 
-e.g: to create a deployment from a deployment.yaml file in your current directory
+For example, to create a deployment from a `deployment.yaml` file in your current directory:
 ```sh
 $ docker run --rm --name kubectl \
              -v $(pwd):/files \
@@ -86,7 +92,7 @@ $ docker run --rm --name kubectl \
 
 If you need to use kubectl with terminal interaction with a k8s component you'll have to add the -ti option to the docker running command.
 
-e.g: for entering into a container shell within a pod for debugging/inspecting ... purpose
+For example, to enter a container shell within a pod for debugging or inspection purposes:
 
 ```sh
 $ docker run -ti --rm --name kubectl \
@@ -95,9 +101,25 @@ $ docker run -ti --rm --name kubectl \
              d3fk/kubectl exec -ti deployment/examplebashpod -- bash
 ```
 
-<h4 id="TipsAnchor"></h4>
 
 ### Tips:
+If you are working with files or directories that have restricted access rights, you can set your current user as the default container user using the `--user` option.
+You can dynamically incorporate your user ID and group ID into the run command using `$(id -u)` and `$(id -g)`.
+
+For example:
+
+```sh
+$ docker run -ti --rm --name kubectl \
+             --user $(id -u):$(id -g) \
+             -v $(pwd):/files \
+             -v $HOME/.kube/config:/.kube/config \
+             d3fk/kubectl apply -f deployment.yaml
+```
+
+
+<h4 id="TipsAnchor"></h4>
+
+
 It might be useful to create a command alias for your shell so that you can use this docker container as if kubectl binary was in your system $PATH.
 ```sh
 alias k='docker run --rm -ti --user $(id -u):$(id -g) -v $(pwd):/files -v $HOME/.kube/config:/.kube/config d3fk/kubectl'
