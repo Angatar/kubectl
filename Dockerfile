@@ -7,7 +7,7 @@ ARG APPNAME
 ARG USERNAME=$APPNAME
 
 RUN apk add --no-cache openssl \
-    && DOWNLOAD_PATH="https://storage.googleapis.com/kubernetes-release/release/$KUBEVERSION/bin/$(echo $TARGETPLATFORM |sed 's/\/v[6,7,8]//')/kubectl" \
+    && DOWNLOAD_PATH="https://dl.k8s.io/release/$KUBEVERSION/bin/$(echo $TARGETPLATFORM |sed 's/\/v[6,7,8]//')/kubectl" \
     && wget $DOWNLOAD_PATH \
     && wget $DOWNLOAD_PATH.sha256 \
     # Verify the checksum
