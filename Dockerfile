@@ -1,5 +1,5 @@
 ARG APPNAME="kubectl"
-FROM --platform=$BUILDPLATFORM alpine:latest as helper
+FROM --platform=$BUILDPLATFORM alpine:latest AS helper
 LABEL org.opencontainers.image.authors="d3fk"
 ARG KUBEVERSION="v1.30.4"
 ARG TARGETPLATFORM
