@@ -182,14 +182,14 @@ Then, k8s rolling updates will be made regularly based on your CronJob configura
 The content of this [GitHub code repository](https://github.com/Angatar/kubectl) is provided under **MIT** licence
 [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE).
 
-For **kubectl** license information, please see https://github.com/kubernetes/kubectl .
+For the license information related to **kubectl**, please visit  https://github.com/kubernetes/kubectl .
 
 
-## Wanna use Helm?
+## Interested in Helm?
 
-If you're using Kubectl, you might also be interested in the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container. It offers a similar lightweight and minimalistic container approach for deploying your Helm charts in your k8s clusters using the Helm command-line tool.
+If you're using Kubectl, you might also find the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container useful. It offers a similar lightweight and minimalistic container approach for deploying your Helm charts in your Kubernetes clusters.
 
-You can find more details and usage instructions for the [d3fk/helm](https://hub.docker.com/r/d3fk/helm/) container on [Docker Hub](https://hub.docker.com/r/d3fk/helm/) or its [GitHub repository]((https://github.com/Angatar/helm)).
+For more details and usage instructions, check out the [d3fk/helm GitHub repository](https://github.com/Angatar/helm) or its [Docker Hub page](https://hub.docker.com/r/d3fk/helm/).
 
 
 [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
