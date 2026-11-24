@@ -1,7 +1,7 @@
-[![Docker Pulls](https://badgen.net/docker/pulls/d3fk/kubectl?icon=docker&label=pulls&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=image%20size&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker build](https://img.shields.io/badge/automated-automated?style=flat&logo=docker&logoColor=blue&label=build&color=green&cacheSeconds=600)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Stars](https://badgen.net/docker/stars/d3fk/kubectl?icon=docker&label=stars&color=green&cache=600)](https://hub.docker.com/r/d3fk/kubectl) [![Github Stars](https://img.shields.io/github/stars/Angatar/kubectl?label=stars&logo=github&color=green&style=flat&cacheSeconds=600)](https://github.com/Angatar/kubectl) [![Github forks](https://img.shields.io/github/forks/Angatar/kubectl?logo=github&style=flat&cacheSeconds=600)](https://github.com/Angatar/kubectl/fork) [![Github open issues](https://img.shields.io/github/issues-raw/Angatar/kubectl?logo=github&color=yellow&cacheSeconds=600)](https://github.com/Angatar/kubectl/issues) [![Github closed issues](https://img.shields.io/github/issues-closed-raw/Angatar/kubectl?logo=github&color=green&cacheSeconds=600)](https://github.com/Angatar/kubectl/issues?q=is%3Aissue+is%3Aclosed) [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
+[![Docker Pulls](https://img.shields.io/docker/pulls/d3fk/kubectl?logo=docker)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Image Size](https://img.shields.io/docker/image-size/d3fk/kubectl/latest?arch=amd64&logo=docker)](https://hub.docker.com/r/d3fk/kubectl/tags) [![Docker Hub builds](https://img.shields.io/badge/Docker%20Hub-builds-2496ED?logo=docker)](https://hub.docker.com/repository/docker/d3fk/kubectl/builds) [![Docker Stars](https://img.shields.io/docker/stars/d3fk/kubectl?logo=docker)](https://hub.docker.com/r/d3fk/kubectl) [![GitHub Stars](https://img.shields.io/github/stars/Angatar/kubectl?logo=github&style=flat)](https://github.com/Angatar/kubectl) [![GitHub forks](https://img.shields.io/github/forks/Angatar/kubectl?logo=github&style=flat)](https://github.com/Angatar/kubectl/fork) [![GitHub open issues](https://img.shields.io/github/issues-raw/Angatar/kubectl?logo=github)](https://github.com/Angatar/kubectl/issues) [![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/Angatar/kubectl?logo=github)](https://github.com/Angatar/kubectl/issues?q=is%3Aissue+is%3Aclosed) [![GitHub license](https://img.shields.io/github/license/Angatar/kubectl)](https://github.com/Angatar/kubectl/blob/master/LICENSE)
 
 # Light kubectl container from scratch (Angatar> d3fk/kubectl)
-A super lightweight container with only Kubectl official binary plus a default non-root user... that's it (~44MB -> [![Docker Image Size](https://badgen.net/docker/size/d3fk/kubectl/latest?icon=docker&label=compressed&cache=600)](https://hub.docker.com/r/d3fk/kubectl/tags)). It is made from scratch (downloaded from googleapis through alpine image and directly poured from alpine into scratch), prebuilt on Docker hub with "automated build" as multi-arch image from v1.25, updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ...
+A super lightweight container with only Kubectl official binary plus a default non-root user... that's it. It is made from scratch (downloaded from dl.k8s.io using an Alpine build stage and copied into scratch), prebuilt on Docker hub with "automated build" as multi-arch image from v1.25, updated everyday for its last version. This container is really useful to manage your kubernetes clusters from anywhere like simple docker containers or from other k8s pods, jobs, cronjobs ...
 
 It can be used for CI/CD or simply as your main Kubectl command (version can be set by changing the tag).
 
@@ -18,27 +18,34 @@ $ docker pull d3fk/kubectl:latest
 ```
 Docker hub repository: https://hub.docker.com/r/d3fk/kubectl/
 
-[![DockerHub Badge](https://dockeri.co/image/d3fk/kubectl?cache=600)](https://hub.docker.com/r/d3fk/kubectl)
-
-
 ## Kubectl version of d3fk/kubectl is the last stable version
 
-The **d3fk/kubectl:latest** multi-arch image available from the Docker Hub is made with automated build auto-triggered every day so that using the d3fk/kubectl image ensures you to have the last **stable** version available of Kubectl within 24H max after its release. This last stable version of Kubectl is currently related to the last release of Kubernetes which is [reported Here](https://storage.googleapis.com/kubernetes-release/release/stable.txt).
+Docker Hub builds **d3fk/kubectl:latest** daily from the version published in the upstream [stable release channel](https://dl.k8s.io/release/stable.txt).
 
-As it is a multi-arch image it will fit most of architectures:
+The official binaries support these platforms:
 
 - linux/amd64
 - linux/386
-- linux/arm/v6
 - linux/arm/v7
 - linux/arm64/v8
 - linux/ppc64le
 - linux/s390x
 
-Therefore, you could even use this d3fk/kubectl container to manage K8s clusters from a Raspberry Pi.
+On Raspberry Pi, use an ARMv7 or ARM64 model. The official 32-bit ARM binary requires ARMv7.
 
-## Previous Kubectl versions
-In case you require a previous version or simply a fixed version of Kubectl, the following tagged images are also made available from the Docker hub (as multi-arch image from d3fk/kubectl:v1.25). In each of these images the version is fixed and won't be changed so that it was freezed in a release of the code repo and built from the Docker hub by automated build (the code is available from the "releases" section of this image code repository on GitHub). These images are stable and won't be rebuilt in the future:
+## Pinned Kubectl versions
+
+Each `v1.xx` tag contains a fixed upstream patch release from [GitHub Releases](https://github.com/Angatar/kubectl/releases). Choose a `kubectl` version within one minor version of your cluster's API server. See the [Kubernetes version skew policy](https://kubernetes.io/releases/version-skew-policy/#kubectl). Older series are available for compatibility with existing clusters. See [Kubernetes releases](https://kubernetes.io/releases/) for maintained versions.
+
+Starting with `v1.31`, each pinned tag targets the six platforms listed above. The 32-bit ARM image uses `linux/arm/v7`. An ARMv6 device, such as the original Raspberry Pi Zero, requires a build that targets ARMv6.
+
+* for version 1.37.2: **d3fk/kubectl:v1.37**
+* for version 1.36.6: **d3fk/kubectl:v1.36**
+* for version 1.35.10: **d3fk/kubectl:v1.35**
+* for version 1.34.13: **d3fk/kubectl:v1.34**
+* for version 1.33.13: **d3fk/kubectl:v1.33**
+* for version 1.32.13: **d3fk/kubectl:v1.32**
+* for version 1.31.14: **d3fk/kubectl:v1.31**
 * for version 1.30.4: **d3fk/kubectl:v1.30**
 * for version 1.29.5: **d3fk/kubectl:v1.29**
 * for version 1.28.10: **d3fk/kubectl:v1.28**
