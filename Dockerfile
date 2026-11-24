@@ -1,7 +1,7 @@
 ARG APPNAME="kubectl"
 FROM --platform=$BUILDPLATFORM alpine:latest AS helper
 LABEL org.opencontainers.image.authors="d3fk"
-ARG KUBEVERSION="v1.36.6"
+ARG KUBEVERSION="v1.37.2"
 ARG TARGETPLATFORM
 ARG APPNAME
 ARG USERNAME=$APPNAME
